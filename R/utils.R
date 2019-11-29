@@ -82,17 +82,13 @@ as.data.frame.s3_bucket <- function(x, row.names = NULL, optional = FALSE, ...) 
               LastModified = z[["LastModified"]],
               ETag = z[["ETag"]],
               Size = z[["Size"]],
-              Owner_ID =
-                ifelse(is.null(z[["Owner"]]), NA, z[["Owner"]][["ID"]]),
-              Owner_DisplayName =
-                ifelse(is.null(z[["Owner"]]), NA, z[["Owner"]][["DisplayName"]]),
               StorageClass = z[["StorageClass"]],
               Bucket = z[["Bucket"]])
         })
         op <- options(stringsAsFactors = FALSE)
         on.exit(options(op))
         out <- do.call("rbind.data.frame", unname(out))
-        names(out) <- c("Key", "LastModified", "ETag", "Size", "Owner_ID", "Owner_DisplayName", "StorageClass", "Bucket")
+        names(out) <- c("Key", "LastModified", "ETag", "Size", "StorageClass", "Bucket")
         structure(out, row.names = if(!is.null(row.names)) row.names else seq_len(nrow(out)),
                        Marker = attributes(x)[["Marker"]],
                        IsTruncated = attributes(x)[["IsTruncated"]],
@@ -102,8 +98,6 @@ as.data.frame.s3_bucket <- function(x, row.names = NULL, optional = FALSE, ...) 
                        LastModified = character(0),
                        ETag = character(0),
                        Size = character(0),
-                       Owner_ID = character(0),
-                       Owner_DisplayName = character(0),
                        StorageClass = character(0),
                        Bucket = character(0)),
                   class = "data.frame",
