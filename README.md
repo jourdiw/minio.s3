@@ -10,7 +10,7 @@ This package is not yet on CRAN. To install the latest development version you c
 
 ```R
 library(devtools)
-install_github("nagdevAmruthnath/minio.s3")
+install_github("jourdiw/minio.s3")
 ```
 
 ## Usage

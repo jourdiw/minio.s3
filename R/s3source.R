@@ -27,15 +27,15 @@
 #' }
 #' @seealso \code{\link{s3saveRDS}},\code{\link{s3save}}, \code{\link{get_object}}
 #' @export
-s3source <- function(object, bucket, ..., opts = NULL) {
+s3source <- function(object, bucket, use_https, ..., opts = NULL) {
     if (missing(bucket)) {
         bucket <- get_bucketname(object)
     }
-    object <- get_objectkey(object)
+    object <- get_objectkey(object, use_https = use_https)
     if (is.null(opts)) {
-        r <- get_object(bucket = bucket, object = object)
+        r <- get_object(bucket = bucket, object = object, use_https = use_https)
     } else {
-        r <- do.call("get_object", c(list(bucket = bucket, object = object), opts))
+        r <- do.call("get_object", c(list(bucket = bucket, object = object, use_https = use_https), opts))
     }
     tmp <- tempfile(fileext = ".R")
     on.exit(unlink(tmp))
